@@ -125,7 +125,13 @@ void ofApp::draw(){
     {
         particles.draw();
     }
-    
+    string info = "";
+    info += "Mouse Drag for particles\n";
+    info += "Total Particles: "+ofToString(particles.getParticleCount())+"\n\n";
+    info += "FPS: "+ofToString(ofGetFrameRate(), 1)+"\n";
+    info += "'v': toggle vbo";
+    ofSetHexColor(0xffffff);
+    ofDrawBitmapString(info, 30, 30);
 }
 
 //--------------------------------------------------------------
