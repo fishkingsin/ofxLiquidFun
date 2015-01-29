@@ -55,4 +55,5 @@ public:
     void setParticleAngle(int i, float _angle);
     
     void updateAttribtuteData();
+    bool bVbo;
 };

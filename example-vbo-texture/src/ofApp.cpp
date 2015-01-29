@@ -16,9 +16,9 @@ void ofApp::setup(){
     
     ofColor color;
     color.set(255);
-    particles.setParticleFlag(b2_tensileParticle);
+    particles.setParticleFlag(b2_repulsiveParticle);
     particles.setup(box2d.getWorld(), kParticles, 60.0, 6.0, 42.0, color);
-    
+    particles.loadImage("particle32.png");
     //billboard
     ofDisableArbTex();
     texture.loadImage("particleGrid.png");
@@ -90,8 +90,7 @@ void ofApp::update(){
 
     for(int i = 0 ; i < particleCount ; i  ++)
     {
-
-
+        setParticleColor(i, ofColor(particleColor[i].r,particleColor[i].g,particleColor[i].b));
         setParticleVertex(i, ofVec3f(positnon[i].x, positnon[i].y));
 
     }
@@ -105,6 +104,8 @@ void ofApp::draw(){
     ofEnableBlendMode(OF_BLENDMODE_ADD);;
     ofSetColor(255);
     
+    if(bVbo)
+    {
     ofEnablePointSprites();
     ofPushMatrix();
     ofScale(OFX_BOX2D_SCALE, OFX_BOX2D_SCALE);
@@ -119,12 +120,20 @@ void ofApp::draw(){
     billboardShader.end();
     ofPopMatrix();
     ofDisablePointSprites();
+    }
+    else
+    {
+        particles.draw();
+    }
     
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    if('v')
+    {
+        bVbo = !bVbo;
+    }
 }
 
 //--------------------------------------------------------------
@@ -151,7 +160,7 @@ void ofApp::mouseDragged(int x, int y, int button){
         particles.setColor(color);
         particles.createParticle(position, velocity);
         setParticleColor(particles.getParticleCount()-1, color);
-        setParticleNormal(particles.getParticleCount()-1, ofVec3f(4,0,0));
+        setParticleNormal(particles.getParticleCount()-1, ofVec3f(8,0,0));
         setParticleTexCoords(particles.getParticleCount()-1, (int)ofRandom(cellColls),(int)ofRandom(cellRows));
     }
 }
