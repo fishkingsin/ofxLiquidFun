@@ -1,4 +1,4 @@
 #README
 demostrating vbo billboard texture with attribute
 
-![screen](thumbnail.png)
+![screen](./example-vbo-texture/thumbnail.png)
